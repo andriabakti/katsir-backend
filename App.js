@@ -3,8 +3,8 @@ const express = require('express')
 const { urlencoded, json } = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-const routes = require('./src/routes')
 
+const routes = require('./src/routes')
 const app = express()
 
 app.use(
@@ -22,5 +22,3 @@ const port = process.env.PORT || 3939
 app.listen(port, () => {
 	console.log(`Server is running !!!`)
 })
-
-//Run app, then load http://localhost:port in a browser to see the output.
