@@ -1,18 +1,15 @@
 module.exports = {
 	response: (res, result, status, message, links, error) => {
 		const resp = {}
-		resp.success = !error
-		if (!error) {
-			resp.status_code = status || null
-			resp.message = message || null
-		} else {
-			resp.error = error
-		}
-		resp.data = result
+		resp.status = 'Success'
+		resp.status_code = status
+		resp.message = message
+		resp.result = result
+		resp.error = error || null
 		if (links) {
 			resp.page_info = links
 		}
-		return res.status(status).json(resp)
+		return res.status(resp.status_code).json(resp)
 	},
 	status: {
 		found: 'Data found',
@@ -35,22 +32,5 @@ module.exports = {
 			count: count
 		}
 		return result
-	},
-	errors: {
-		notFound: {
-			code: 'ERR_NOT_FOUND',
-			statusCode: 404,
-			sqlMessage: 'Data Not Found'
-		},
-		checkStatusCode: (error) => {
-			const code = Number(error)
-			if (code === 1048 || code === 1366) {
-				return 404
-			} else if (code === 1146 || code === 1054 || code === 1051) {
-				return 500
-			} else {
-				return 400
-			}
-		}
 	}
 }
