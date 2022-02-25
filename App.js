@@ -5,6 +5,7 @@ const logger = require('morgan')
 const cors = require('cors')
 
 const routes = require('./src/routes')
+const port = process.env.PORT || 3939
 const app = express()
 
 app.use(
@@ -18,7 +19,6 @@ app.use(cors())
 
 app.use('/api/v1', routes)
 
-const port = process.env.PORT || 3939
 app.listen(port, () => {
-	console.log(`Server is running !!!`)
+	console.log(`Server is running on port: ${port}`)
 })
