@@ -14,8 +14,8 @@ module.exports = {
 		const { name, image, price, category_id } = req.body
 		const data = {
 			name,
-			image,
 			price,
+			image,
 			category_id,
 			created_at: new Date()
 		}
@@ -78,8 +78,8 @@ module.exports = {
 		const { name, image, price, category_id } = req.body
 		const data = {
 			name,
-			image,
 			price,
+			image,
 			category_id,
 			updated_at: new Date()
 		}

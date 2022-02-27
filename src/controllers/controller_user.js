@@ -5,15 +5,15 @@ const { response } = require('../helpers/helper_resp')
 
 module.exports = {
   signUp: (req, res) => {
-    const { email, password, username } = req.body
+    const { email, password, username, role } = req.body
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
     const data = {
       email,
       password: hash,
       username,
-      role: 2,
-      createdAt: new Date()
+      role,
+      created_at: new Date()
     }
     createUser(data)
       .then((result) => {
@@ -45,8 +45,8 @@ module.exports = {
             (_err, token) => {
               user.token = token
               delete user.password
-              delete user.createdAt
-              delete user.updatedAt
+              delete user.created_at
+              delete user.updated_at
               response(
                 res,
                 result[0],
