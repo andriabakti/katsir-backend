@@ -4,7 +4,7 @@ const { urlencoded, json, static } = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
-const routes = require('./src/routers')
+const routes = require('./src/routers/')
 const port = process.env.PORT || 3939
 const app = express()
 

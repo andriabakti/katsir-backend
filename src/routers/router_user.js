@@ -1,6 +1,6 @@
-const { Router } = require('express')
+const express = require('express')
+const router = express.Router()
 const { signUp, signIn } = require('../controllers/controller_user')
-const router = Router()
 
 router
   .post('/register', signUp)

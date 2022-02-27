@@ -1,4 +1,5 @@
-const { Router } = require('express')
+const express = require('express')
+const router = express.Router()
 const {
 	createProduct,
 	readAllProduct,
@@ -8,7 +9,6 @@ const {
 } = require('../controllers/controller_product')
 const { verifyAccess } = require('../middlewares/midware_auth')
 const upload = require('../middlewares/midware_multer')
-const router = Router()
 
 router
 	.post('/', verifyAccess, upload, createProduct)
