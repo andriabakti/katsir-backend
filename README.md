@@ -1,72 +1,81 @@
-# Katsir API
+<h1 align="center">Katsir - API</h1>
 
-![GitHub repo size in bytes](https://img.shields.io/github/repo-size/andriabakti/katsir-backend)
-
-This API is for Katsir App.
-
-## Build with
+This is the API for <b>[Katsir (Web)](https://github.com/andriabakti/katsir-frontend)</b>, a web-based POS (Point of Sales) application for cashier in café or shop to serves and processes customer's orders easily. <b>This app is built with:</b>
 
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/)
-- [Redis](https://redis.io/)
 
-## Requirements
+## Table of Contents
 
-- [Node.js](https://nodejs.org/en/)
+- [Table of Contents](#table-of-contents)
+- [Setup for Development](#setup-for-development)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Setup .env example](#setup-env-example)
+- [API Documentation](#api-documentation)
+- [Related Project](#related-project)
+- [License](#license)
+- [Contact](#contact)
+
+## Setup for Development
+
+### Requirements
+
+- [Node.js](https://nodejs.org/en/download/)
+- [Sample Database](db-sample.sql) (MySQL)
 - [Postman](https://www.getpostman.com/) for testing
-- [Redis](https://redis.io/)
 
-## Project setup
+### Installation
 
-```/
-npm install
+1. Clone the repository
+
+```sh
+git clone https://github.com/andriabakti/katsir-backend.git
 ```
 
-### Install nodemon
+2. Install package dependencies
 
-Nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-
-If you have already installed, skip this step.
-
-```/
-npm install -g nodemon
+```sh
+npm install
 ```
 
 ### Setup .env example
 
-Create .env file in your root project folder.
+3. Create .env file in your project's root folder & set all the variables below
 
-```/
-DB_HOST = localhost
-DB_USER = root/your_database_user
-DB_PASSWORD = your_database_password
-DB_DATABASE = your_database_name
-SECRET_KEY = your_secret_key
-REDIS_PORT = 6379
-PORT = 4000
-URL = http://localhost
+```sh
+# ENV: Port
+PORT='your_port'
+# ENV: JSON Web Token
+JWT_KEY='your_jwt_private_key'
+# ENV: Database
+DB_HOST='your_database_host'
+DB_USER='your_database_user'
+DB_PASSWORD='your_database_password'
+DB_DATABASE='your_database_name'
+# ENV: Cloudinary
+CLOUD_NAME='your_cloudinary_cloud_name'
+CLOUD_KEY='your_cloudinary_API_key'
+CLOUD_SECRET='your_cloudinary_API_secret'
 ```
 
-### Run project for development
+4. Make sure you already import the [Sample Database](db-sample.sql) to your local database
+5. Run the app locally in development mode
 
-```/
-npm run dev
-```
+## API Documentation
 
-## End Point
-
-<b>1. Auth</b>
-<br>
-<b>- POST</b> /api/v1/users/register<br>
-<b>- POST</b> /api/v1/users/login<br>
-<br>
-<b>2. Products</b>
-<br>
-<b>- GET</b> /api/v1/products/<br>
-<b>- POST</b> /api/v1/products/<br>
-<b>- DELETE</b> /api/v1/products/:id<br>
-<b>- PATCH</b> /api/v1/products/:id<br>
+You can see & access all the endpoint by click the button below to import the collection into your Postman:</br>
+</br>
+[![Run in Postmant](https://run.pstmn.io/button.svg)](https://www.app.getpostman.com/run-collection/915af2ab7fbfc41d31da)
 
 ## Related Project
 
-- [Cafetaria](https://github.com/andriabakti/katsir-frontend)
+- [Katsir: Front-end](https://github.com/andriabakti/katsir-frontend)
+
+## License
+
+- [MIT](https://choosealicense.com/licenses/mit/)
+
+## Contact
+
+Email : andr.bkti@gmail.com
