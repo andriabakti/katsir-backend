@@ -20,11 +20,11 @@ app.use(logger('dev'))
 app.use('/api/v1', routes)
 app.use('/uploads', static('./uploads'))
 
-app.use((err, _req, res, _next) => {
-	const statusCode = err.status || 500
-	const message = err.message || 'Internal Server Error'
-	response(res, null, statusCode, message, null, error)
-})
+// app.use((err, _req, res, _next) => {
+// 	const statusCode = err.status || 500
+// 	const message = err.message || 'Internal Server Error'
+// 	response(res, null, statusCode, message, null, error)
+// })
 
 app.listen(port, () => {
 	console.log(`Server is running on port: ${port}`)
