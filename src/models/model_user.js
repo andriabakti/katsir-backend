@@ -1,12 +1,12 @@
 const {
-  queryHelper
+  queryAction
 } = require('../helpers/helper_query')
 
 module.exports = {
   createUser: (data) => {
-    return queryHelper('INSERT INTO user SET ?', data)
+    return queryAction('INSERT INTO user SET ?', data)
   },
   getUserByEmail: (email) => {
-    return queryHelper('SELECT * FROM user WHERE email = ?', email)
+    return queryAction('SELECT * FROM user WHERE email = ?', email)
   }
 }

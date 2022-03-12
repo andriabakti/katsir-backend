@@ -1,31 +1,31 @@
-const { queryHelper } = require('../helpers/helper_query')
+const { queryAction } = require('../helpers/helper_query')
 
 module.exports = {
 	insertProduct: (data) => {
-		return queryHelper('INSERT INTO product SET ?', data)
+		return queryAction('INSERT INTO product SET ?', data)
 	},
 	getAllProduct: (search, sort, order, limit, offset) => {
-		return queryHelper(
+		return queryAction(
 			`SELECT * FROM product ${search ? `WHERE product.name LIKE %${search}%` : ''
 			} ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`
 		)
 	},
 	getProductById: (id) => {
-		return queryHelper('SELECT product.* FROM product WHERE id = ?', id)
+		return queryAction('SELECT product.* FROM product WHERE id = ?', id)
 	},
 	getSearch: (search) => {
-		return queryHelper(
+		return queryAction(
 			'SELECT * FROM product WHERE name LIKE ?',
 			`%${search}%`
 		)
 	},
 	getTotal: () => {
-		return queryHelper('SELECT COUNT(*) AS total FROM product')
+		return queryAction('SELECT COUNT(*) AS total FROM product')
 	},
 	editProduct: (data, id) => {
-		return queryHelper('UPDATE product SET ? WHERE id = ?', [data, id])
+		return queryAction('UPDATE product SET ? WHERE id = ?', [data, id])
 	},
 	removeProduct: (id) => {
-		return queryHelper('DELETE FROM product WHERE id = ?', id)
+		return queryAction('DELETE FROM product WHERE id = ?', id)
 	}
 }
