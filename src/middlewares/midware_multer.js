@@ -1,38 +1,20 @@
 const multer = require('multer')
-const { diskStorage } = require('multer')
+const cloudinary = require('cloudinary').v2
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 
-const storage = diskStorage({
-  destination: function (_req, _file, cb) {
-    cb(null, './uploads')
-  },
-  filename: function (_req, file, cb) {
-    const unique = Date.now()
-    const date = new Date().toDateString().split(' ').join('_')
-    const time = new Date().toLocaleTimeString('id')
-    const name = file.originalname.split(' ').join('_')
-    cb(null, `${unique}-${date}-${time}-${name}`)
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET
+})
+
+const storage = CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'app_Katsir'
   }
 })
 
-const checkFileType = ({ mimetype }, cb) => {
-  if (
-    mimetype === 'image/png' ||
-    mimetype === 'image/jpg' ||
-    mimetype === 'image/jpeg'
-  ) {
-    cb(null, true)
-  } else {
-    cb(null, false)
-    return cb(new Error('Only .png, .jpg and .jpeg format allowed!!'))
-  }
-}
-
 module.exports = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1 * 1024 * 1024
-  },
-  fileFilter: function (_req, file, cb) {
-    checkFileType(file, cb)
-  }
+  storage: storage
 }).single('image')
