@@ -1,15 +1,13 @@
 module.exports = {
 	response: (res, result, status, message, links, error) => {
-		const resp = {}
-		resp.status = 'Success'
-		resp.status_code = status
-		resp.message = message
-		resp.result = result
-		resp.error = error || null
-		if (links) {
-			resp.page_info = links
-		}
-		return res.status(resp.status_code).json(resp)
+		return res.status(status).json({
+			status: `${error}` ? 'Failed' : 'Success',
+			status_code: status || 200,
+			message: message || null,
+			result: result,
+			page_info: links || null,
+			error: error || null
+		})
 	},
 	status: {
 		found: 'Data found',

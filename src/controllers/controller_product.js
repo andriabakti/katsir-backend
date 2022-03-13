@@ -1,4 +1,4 @@
-const { response, status, pageInfo } = require('../helpers/helper_resp')
+// model: product
 const {
 	insertProduct,
 	getAllProduct,
@@ -8,10 +8,20 @@ const {
 	editProduct,
 	removeProduct
 } = require('../models/model_product')
+// helper: response
+const {
+	response,
+	pageInfo
+} = require('../helpers/helper_resp')
 
 module.exports = {
 	createProduct: (req, res) => {
-		const { name, image, price, category_id } = req.body
+		const {
+			name,
+			image,
+			price,
+			category_id
+		} = req.body
 		const data = {
 			name,
 			price,
@@ -21,7 +31,7 @@ module.exports = {
 		}
 		insertProduct(data)
 			.then((_result) => {
-				response(res, {}, res.statusCode, status.insert, null, null)
+				response(res, null, res.statusCode, `${name} created successfully`, null, null)
 			})
 			.catch((error) => {
 				response(res, [], error.statusCode, null, null, error)
@@ -57,25 +67,34 @@ module.exports = {
 				const count = result.length
 				const total = parseInt(totalData)
 				const links = pageInfo(limit, page, total, count)
-				response(res, result, res.statusCode, status.found, links, null)
+				response(res, result, res.statusCode, 'Products found', links, null)
 			})
 			.catch((error) => {
 				response(res, [], error.statusCode, null, null, error)
 			})
 	},
 	readProductById: (req, res) => {
-		const { id } = req.params
+		const {
+			id
+		} = req.params
 		getProductById(id)
 			.then((result) => {
-				response(res, result, res.statusCode, status.found, null, null)
+				response(res, result, res.statusCode, 'Product found', null, null)
 			})
 			.catch((error) => {
 				response(res, [], error.statusCode, null, null, error)
 			})
 	},
 	updateProduct: (req, res) => {
-		const { id } = req.params
-		const { name, image, price, category_id } = req.body
+		const {
+			id
+		} = req.params
+		const {
+			name,
+			image,
+			price,
+			category_id
+		} = req.body
 		const data = {
 			name,
 			price,
@@ -92,7 +111,9 @@ module.exports = {
 			})
 	},
 	deleteProduct: (req, res) => {
-		const { id } = req.params
+		const {
+			id
+		} = req.params
 		removeProduct(id)
 			.then((_result) => {
 				response(res, {}, res.statusCode, status.delete, null, null)

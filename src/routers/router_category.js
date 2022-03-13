@@ -1,5 +1,11 @@
+// package: express
 const express = require('express')
 const router = express.Router()
+// middleware: auth
+const {
+  verifyAccess
+} = require('../middlewares/midware_auth')
+// controller: category
 const {
   createCategory,
   readAllCategory,
@@ -7,9 +13,6 @@ const {
   updateCategory,
   deleteCategory
 } = require('../controllers/controller_category')
-const {
-  verifyAccess
-} = require('../middlewares/midware_auth')
 
 router
   .post('/', verifyAccess, createCategory)

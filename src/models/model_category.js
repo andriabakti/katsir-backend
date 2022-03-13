@@ -1,4 +1,7 @@
-const { queryAction } = require('../helpers/helper_query')
+// helper: query
+const {
+  queryAction
+} = require('../helpers/helper_query')
 
 module.exports = {
   insertCategory: (payload) => {

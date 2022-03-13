@@ -1,4 +1,4 @@
-const { response } = require('../helpers/helper_resp')
+// model: category
 const {
   insertCategory,
   getAllCategory,
@@ -6,9 +6,13 @@ const {
   editCategory,
   removeCategory
 } = require('../models/model_category')
+// helper: response
+const {
+  response
+} = require('../helpers/helper_resp')
 
 module.exports = {
-  createCategory: (req, res) => {
+  createCategory: (req, res, next) => {
     const { name } = req.body
     const payload = {
       name,
@@ -19,29 +23,32 @@ module.exports = {
         response(res, [], res.statusCode, `${name} category created successfully`, null, null)
       })
       .catch((error) => {
-        response(res, [], error.statusCode, `${name} category failed to create`, null, error)
+        console.log(error)
+        next({ status: error.statusCode, message: `${name} category failed to create` })
       })
   },
-  readAllCategory: (_req, res) => {
+  readAllCategory: (_req, res, next) => {
     getAllCategory()
       .then((result) => {
         response(res, result, res.statusCode, "All categories found", null, null)
       })
       .catch((error) => {
-        response(res, [], error.statusCode, "Categories not found", null, error)
+        console.log(error)
+        next({ status: error.statusCode, message: 'Categories not found' })
       })
   },
-  readCategoryById: (req, res) => {
+  readCategoryById: (req, res, next) => {
     const { id } = req.params
     getCategoryById(id)
       .then((result) => {
         response(res, result, res.statusCode, "Category found", null, null)
       })
       .catch((error) => {
-        response(res, [], error.statusCode, "Category not found", null, error)
+        console.log(error)
+        next({ status: error.statusCode, message: 'Category not found' })
       })
   },
-  updateCategory: (req, res) => {
+  updateCategory: (req, res, next) => {
     const { id } = req.params
     const { name } = req.body
     const payload = {
@@ -53,17 +60,21 @@ module.exports = {
         response(res, [], res.statusCode, "Category updated successfully", null, null)
       })
       .catch((error) => {
-        response(res, [], error.statusCode, "Category failed to update", null, error)
+        console.log(error)
+        next({ status: error.statusCode, message: 'Category failed to update' })
       })
   },
-  deleteCategory: (req, res) => {
-    const { id } = req.params
+  deleteCategory: (req, res, next) => {
+    const {
+      id
+    } = req.params
     removeCategory(id)
       .then((_result) => {
         response(res, [], res.statusCode, "Category deleted successfully", null, null)
       })
       .catch((error) => {
-        response(res, [], error.statusCode, "Category failed to delete", null, error)
+        console.log(error)
+        next({ status: error.statusCode, message: 'Category failed to delete' })
       })
   }
 }
