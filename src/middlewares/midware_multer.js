@@ -1,20 +1,31 @@
-const multer = require('multer')
-const cloudinary = require('cloudinary').v2
-const { CloudinaryStorage } = require('multer-storage-cloudinary')
+// package: multer
+const multer = require("multer")
+// package: cloudinary
+const cloudinary = require("cloudinary").v2
+// package: multer-storage-cloudinary
+const {
+  CloudinaryStorage
+} = require("multer-storage-cloudinary")
+// env: cloudinary
+const {
+  CLOUD_NAME,
+  CLOUD_KEY,
+  CLOUD_SECRET
+} = process.env
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_KEY,
-  api_secret: process.env.CLOUD_SECRET
+  cloud_name: CLOUD_NAME,
+  api_key: CLOUD_KEY,
+  api_secret: CLOUD_SECRET
 })
 
 const storage = CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'app_Katsir'
+    folder: "app_Katsir"
   }
 })
 
 module.exports = multer({
   storage: storage
-}).single('image')
+}).single("image")

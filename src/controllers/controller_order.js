@@ -3,11 +3,11 @@ const {
   insertOrderDetail,
   insertOrderItem,
   getAllOrder
-} = require('../models/model_order')
+} = require("../models/model_order")
 // helper: response
 const {
   response
-} = require('../helpers/helper_resp')
+} = require("../helpers/helper_resp")
 
 module.exports = {
   createOrder: async (req, res, next) => {
@@ -27,12 +27,12 @@ module.exports = {
       const detail = await insertOrderDetail(payload)
       console.log(detail)
       await insertOrderItem(detail.insertId, id, items)
-      response(res, [], res.statusCode, "All order(s) created successfully", null, null)
+      response(res, [], res.statusCode, "Order(s) created successfully", null, null)
     } catch (error) {
       console.log(error)
       next({
         status: error.statusCode,
-        message: "Orders failed to create"
+        message: "Failed to create the order(s)"
       })
     }
   },
