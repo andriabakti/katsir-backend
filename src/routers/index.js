@@ -1,15 +1,15 @@
-// pkgs: express
-const express = require('express')
+// package: express
+const express = require("express")
 const router = express.Router()
-// modules: route
-const userRoutes = require('./router_user')
-const productRoutes = require('./router_product')
-const categoryRoutes = require('./router_category')
-// const orderRoutes = require('./router_order')
+// router: module
+const routesUser = require("./router_user")
+const routesProduct = require("./router_product")
+const routesCategory = require("./router_category")
+const routesOrder = require("./router_order")
 
 router
-  .use('/user', userRoutes)
-  .use('/product', productRoutes)
-  .use('/category', categoryRoutes)
-// .use('/order', orderRoutes)
+  .use("/user", routesUser)
+  .use("/product", routesProduct)
+  .use("/category", routesCategory)
+  .use("/order", routesOrder)
 module.exports = router

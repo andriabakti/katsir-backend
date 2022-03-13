@@ -1,35 +1,53 @@
-const { response } = require('../helpers/helper_resp')
+// model: order
 const {
   insertOrderDetail,
   insertOrderItem,
   getAllOrder
-} = require('../models/model_order')
+} = require("../models/model_order")
+// helper: response
+const {
+  response
+} = require("../helpers/helper_resp")
+
 module.exports = {
-  createOrder: async (req, res) => {
-    const { id, total, items } = req.body
+  createOrder: async (req, res, next) => {
+    const {
+      id,
+      total,
+      tax,
+      items
+    } = req.body
     const payload = {
       user_id: id,
       total,
+      tax,
       created_at: new Date()
     }
     try {
-      const result = await insertOrderDetail(payload)
-      console.log(result);
-      await insertOrderItem(result.insertId, id, items)
-      response(res, [], res.statusCode, "All order(s) created successfully", null, null)
+      const detail = await insertOrderDetail(payload)
+      console.log(detail)
+      await insertOrderItem(detail.insertId, id, items)
+      response(res, [], res.statusCode, "Order(s) created successfully", null, null)
     } catch (error) {
-      response(res, [], error.statusCode, 'Orders failed to create', null, error)
+      console.log(error)
+      next({
+        status: error.statusCode,
+        message: "Failed to create the order(s)"
+      })
     }
   },
-  readAllOrder: (req, res) => {
-    const { id } = req.params
-    getAllOrder(id)
+  readAllOrder: (_req, res, next) => {
+    getAllOrder()
       .then((result) => {
+        console.log(result)
         response(res, result, res.statusCode, "Orders found", null, null)
       })
       .catch((error) => {
-        console.log(error);
-        response(res, [], error.statusCode, "Orders not found", null, error)
+        console.log(error)
+        next({
+          status: error.statusCode,
+          message: "Orders not found"
+        })
       })
   }
 }

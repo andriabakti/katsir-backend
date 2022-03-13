@@ -1,18 +1,23 @@
-const { queryAction } = require('../helpers/helper_query')
+// helper: query
+const {
+  queryAction
+} = require("../helpers/helper_query")
 
 module.exports = {
   insertOrderDetail: (payload) => {
-    return queryAction('INSERT INTO order_detail SET ?', payload)
+    return queryAction("INSERT INTO order_detail SET ?", payload)
   },
-  insertOrderItem: (order, id, payload) => {
-    return queryAction(`
-    INSERT INTO order_item (order_id, user_id, product_id, quantity, crated_at) VALUES ?`,
-      [payload.map(item => [order, id, item.id, item.quantity, new Date()])])
+  insertOrderItem: (order_id, user_id, payload) => {
+    return queryAction(
+      `
+    INSERT INTO order_item (order_id, user_id, product_id, quantity, created_at) VALUES ?`,
+			[payload.map((item) => [order_id, user_id, item.id, item.quantity, new Date()])]
+    )
   },
   getAllOrder: () => {
     return queryAction(`
-    SELECT order_item.*, product.* FROM order_item
-    INNER JOIN product ON order_item.product_id = product.id
-    WHERE order_item.user_id = ${id}`)
+    SELECT order_detail.*, order_item.* FROM order_detail
+    INNER JOIN order_item ON order_detail.id = order_item.order_id
+		`)
   }
 }

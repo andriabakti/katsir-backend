@@ -1,10 +1,14 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { createUser, getUserByEmail } = require('../models/model_user')
-const { response } = require('../helpers/helper_resp')
+// package: bcryptjs
+const bcrypt = require("bcryptjs")
+// package: jsonwebtoken
+const jwt = require("jsonwebtoken")
+// model: user
+const { createUser, getUserByEmail } = require("../models/model_user")
+// helper: response
+const { response } = require("../helpers/helper_resp")
 
 module.exports = {
-  signUp: (req, res) => {
+  signUp: (req, res, next) => {
     const { email, password, username, role } = req.body
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
@@ -17,50 +21,46 @@ module.exports = {
     }
     createUser(data)
       .then((result) => {
-        response(res, result, 201, 'Register success', null, null)
+        response(res, result, 201, "Register success", null, null)
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        console.log(error)
+        next({
+          status: error.statusCode,
+          message: "Failed to register new user"
+        })
       })
   },
-  signIn: (req, res) => {
+  signIn: (req, res, next) => {
     const { email, password } = req.body
     getUserByEmail(email)
       .then((result) => {
         if (result.length < 1) {
-          return response(res, [], 404, 'Email not found !!', null, null)
+          return next({ status: 404, message: "User not found" })
         }
         const user = result[0]
         bcrypt.compare(password, user.password).then((resCompare) => {
-          !resCompare && response(res, [], 404, 'Password is wrong', null, null)
+          !resCompare && next({ status: 404, message: "Password is wrong" })
           const payload = {
             id: user.id,
             email: user.email,
             role: user.role
           }
-          jwt.sign(
-            payload,
-            process.env.JWT_KEY,
-            { expiresIn: '12h' },
-            (_err, token) => {
-              user.token = token
-              delete user.password
-              delete user.created_at
-              delete user.updated_at
-              response(
-                res,
-                result[0],
-                res.statusCode,
-                'Login success',
-                null,
-                null
-              )
-            }
-          )
+          jwt.sign(payload, process.env.JWT_KEY, { expiresIn: "12h" }, (_err, token) => {
+            user.token = token
+            delete user.password
+            delete user.created_at
+            delete user.updated_at
+            response(res, result[0], res.statusCode, "Login success", null, null)
+          })
         })
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        console.log(error)
+        next({
+          status: error.statusCode,
+          message: "Failed to login"
+        })
       })
   }
 }
