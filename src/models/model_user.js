@@ -4,10 +4,13 @@ const {
 } = require("../helpers/helper_query")
 
 module.exports = {
-  createUser: (data) => {
-    return queryAction("INSERT INTO user SET ?", data)
+  createUser: (payload) => {
+    return queryAction(`INSERT INTO "user"
+    (email, password, role, username, created_at) VALUES ($1, $2, $3, $4, $5)`,
+      [payload.email, payload.password, payload.role, payload.username, payload.created_at]
+    )
   },
-  getUserByEmail: (email) => {
-    return queryAction("SELECT * FROM user WHERE email = ?", email)
+  getUserByEmail: (payload) => {
+    return queryAction(`SELECT * FROM "user" WHERE email = $1`, [payload])
   }
 }
