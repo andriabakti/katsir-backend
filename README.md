@@ -29,7 +29,7 @@ This is the API for <b>[Katsir (Web)](https://github.com/andriabakti/katsir-fron
 1. Clone the repository
 
 ```sh
-git clone https://github.com/andriabakti/katsir-backend/tree/ver-1
+git clone https://github.com/andriabakti/katsir-backend.git
 ```
 
 2. Install package dependencies
