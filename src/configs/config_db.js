@@ -10,9 +10,6 @@ const pool = new Pool({
   // database: process.env.PG_DATABASE,
   // port: process.env.PG_PORT,
   connectionString: `${process.env.DATABASE_URL}?sslmode=require`,
-  ssl: {
-    rejectUnauthorized: false,
-    ca: fs.readFileSync("/path/to/server-certificates/root.crt").toString()
-  }
+  ssl: { rejectUnauthorized: false }
 })
 module.exports = pool
