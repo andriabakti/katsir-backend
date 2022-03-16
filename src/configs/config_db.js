@@ -6,7 +6,8 @@ const {
   PG_USER,
   PG_PASSWORD,
   PG_DATABASE,
-  PG_PORT
+  PG_PORT,
+  PG_SSL
 } = process.env
 
 const pool = new Pool({
