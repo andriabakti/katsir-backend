@@ -1,12 +1,19 @@
 // package: mysql2
-const { createConnection } = require("mysql2")
+const { Pool } = require("pg")
 // env: database
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } = process.env
+const {
+  PG_HOST,
+  PG_USER,
+  PG_PASSWORD,
+  PG_DATABASE,
+  PG_PORT
+} = process.env
 
-const connection = createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_DATABASE
+const pool = new Pool({
+  host: PG_HOST,
+  user: PG_USER,
+  password: PG_PASSWORD,
+  database: PG_DATABASE,
+  port: PG_PORT
 })
-module.exports = connection
+module.exports = pool

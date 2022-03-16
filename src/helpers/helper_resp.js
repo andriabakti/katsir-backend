@@ -1,12 +1,12 @@
 module.exports = {
   response: (res, result, status, message, links, error) => {
     return res.status(status).json({
-      status: `${error}` ? "Failed" : "Success",
+      status: error !== null ? "Failed" : "Success",
       status_code: status || 200,
       message: message || null,
       result: result,
       page_info: links || null,
-      error: error || null
+      error: error ? true : null
     })
   },
   pageInfo: (limit, start, total, count) => {
