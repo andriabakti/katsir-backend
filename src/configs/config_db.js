@@ -16,6 +16,6 @@ const pool = new Pool({
   password: PG_PASSWORD,
   database: PG_DATABASE,
   port: PG_PORT,
-  ssl: PG_SSL
+  ssl: { rejectedUnauthorized: PG_SSL }
 })
 module.exports = pool
