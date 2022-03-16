@@ -8,7 +8,7 @@ module.exports = {
         if (!err) {
           resolve(res)
         } else {
-          reject(new Error(err))
+          reject(new Error(err.message))
         }
       })
     })
