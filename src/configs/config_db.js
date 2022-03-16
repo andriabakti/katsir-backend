@@ -1,21 +1,18 @@
 // package: mysql2
 const { Pool } = require("pg")
-// env: database
-const {
-  PG_HOST,
-  PG_USER,
-  PG_PASSWORD,
-  PG_DATABASE,
-  PG_PORT,
-  PG_SSL
-} = process.env
+// package: fs
+const fs = require("fs")
 
 const pool = new Pool({
-  host: PG_HOST,
-  user: PG_USER,
-  password: PG_PASSWORD,
-  database: PG_DATABASE,
-  port: PG_PORT,
-  ssl: { rejectUnauthorized: PG_SSL }
+  // host: process.env.PG_HOST,
+  // user: process.env.PG_USER,
+  // password: process.env.PG_PASSWORD,
+  // database: process.env.PG_DATABASE,
+  // port: process.env.PG_PORT,
+  connectionString: `${process.env.DATABASE_URL}?sslmode=require`,
+  ssl: {
+    rejectUnauthorized: false,
+    ca: fs.readFileSync("/path/to/server-certificates/root.crt").toString()
+  }
 })
 module.exports = pool
