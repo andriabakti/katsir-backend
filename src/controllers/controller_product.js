@@ -38,7 +38,7 @@ module.exports = {
     const search = req.query.search
     const sort = req.query.sort || "id"
     const order = req.query.order || "DESC"
-    const limit = Number(req.query.limit) || 20
+    const limit = Number(req.query.limit) || 12
     const page = Number(req.query.page) || 1
     const offset = (page === 0 ? 1 : page - 1) * limit
     let totalData
