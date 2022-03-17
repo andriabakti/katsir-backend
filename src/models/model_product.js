@@ -11,16 +11,15 @@ module.exports = {
     )
   },
   getSearch: (search) => {
-    return queryAction(`SELECT * FROM "product" WHERE name LIKE $1`, [`%${search}%`])
+    return queryAction(`SELECT * FROM "product" WHERE name LIKE '%${search}%'`)
   },
   getTotal: () => {
     return queryAction(`SELECT COUNT(*) AS total FROM "product"`)
   },
   getAllProduct: (search, sort, order, limit, offset) => {
-    return queryAction(
-      `SELECT * FROM "product" ${
-				search ? `WHERE name LIKE %${search}%` : ""
-			} ORDER BY ${sort} ${order} LIMIT ${limit} OFFSET ${offset}`
+    return queryAction(`
+    SELECT * FROM "product" ${ search ? `WHERE name LIKE '%${search}%'`: "" } ORDER BY $1 ${order} LIMIT $2 OFFSET $3`,
+      [sort, limit, offset]
     )
   },
   getProductById: (id) => {
