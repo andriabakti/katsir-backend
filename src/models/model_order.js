@@ -1,3 +1,5 @@
+// package: pg-format
+const format = require("pg-format")
 // helper: query
 const {
   queryAction
@@ -10,10 +12,13 @@ module.exports = {
       [payload.user_id, payload.total, payload.tax, payload.created_at])
   },
   insertOrderItem: (order_id, user_id, payload) => {
-    return queryAction(`INSERT INTO "order_item"
-    (order_id, user_id, product_id, quantity, created_at) VALUES ($1, $2, $3, $4, $5)`,
-			[payload.map((item) => [order_id, user_id, item.id, item.quantity, new Date()])]
-    )
+    const data = payload.map(({ id, quantity }) => {
+      return [order_id, user_id, id, quantity, new Date()]
+    })
+    return queryAction(format(`INSERT INTO "order_item"
+    (order_id, user_id, product_id, quantity, created_at) VALUES %L`,
+      data
+    ))
   },
   getAllOrder: () => {
     return queryAction(`
