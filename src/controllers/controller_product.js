@@ -35,17 +35,18 @@ module.exports = {
       })
   },
   readAllProduct: (req, res, next) => {
-    const search = req.query.search || null
+    const search = req.query.search
     const sort = req.query.sort || "id"
     const order = req.query.order || "DESC"
-    const limit = Number(req.query.limit)
+    const limit = Number(req.query.limit) || 20
     const page = Number(req.query.page) || 1
     const offset = (page === 0 ? 1 : page - 1) * limit
+    let totalData
 
     if (search) {
       getSearch(search)
         .then((result) => {
-          console.log(result)
+          // console.log(result)
           totalData = result.rows.length
         })
         .catch((error) => {
@@ -54,7 +55,7 @@ module.exports = {
     } else {
       getTotal()
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           totalData = result.rows[0].total
         })
         .catch((error) => {
@@ -72,7 +73,7 @@ module.exports = {
       .catch((error) => {
         console.log(error)
         next({
-          status: error.statusCode,
+          status: 404,
           message: "Products not found"
         })
       })
@@ -87,7 +88,7 @@ module.exports = {
       .catch((error) => {
         console.log(error)
         next({
-          status: error.statusCode,
+          status: 404,
           message: "Product not found"
         })
       })
