@@ -12,10 +12,12 @@ const cors = require("cors")
 const routes = require("./src/routers/")
 // helper: response
 const { response } = require("./src/helpers/helper_resp")
-// env: port
+// variable: port
 const port = process.env.PORT || 3939
+// usage: express
 const app = express()
 
+// usage: packages
 app.use(
   urlencoded({
     extended: false

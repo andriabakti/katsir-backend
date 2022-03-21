@@ -1,9 +1,7 @@
 // package: pg-format
 const format = require("pg-format")
 // helper: query
-const {
-  queryAction
-} = require("../helpers/helper_query")
+const { queryAction } = require("../helpers/helper_query")
 
 module.exports = {
   insertOrderDetail: (payload) => {

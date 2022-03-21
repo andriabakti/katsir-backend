@@ -3,7 +3,10 @@ const bcrypt = require("bcryptjs")
 // package: jsonwebtoken
 const jwt = require("jsonwebtoken")
 // model: user
-const { createUser, getUserByEmail } = require("../models/model_user")
+const {
+  createUser,
+  getUserByEmail
+} = require("../models/model_user")
 // helper: response
 const { response } = require("../helpers/helper_resp")
 

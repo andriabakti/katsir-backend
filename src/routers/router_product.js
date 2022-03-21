@@ -1,10 +1,7 @@
 // package: express
-const express = require("express")
-const router = express.Router()
+const { Router } = require("express")
 // middleware: auth
-const {
-  verifyAccess
-} = require("../middlewares/midware_auth")
+const { verifyAccess } = require("../middlewares/midware_auth")
 // middleware: multer
 const upload = require("../middlewares/midware_multer")
 // controller: product
@@ -15,6 +12,9 @@ const {
   updateProduct,
   deleteProduct
 } = require("../controllers/controller_product")
+
+// usage: express-router
+const router = Router()
 
 router
   .post("/", verifyAccess, upload, createProduct)
