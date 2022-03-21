@@ -1,5 +1,9 @@
 // model: order
-const { insertOrderDetail, insertOrderItem, getAllOrder } = require("../models/model_order")
+const {
+  insertOrderDetail,
+  insertOrderItem,
+  getAllOrder
+} = require("../models/model_order")
 // helper: response
 const { response } = require("../helpers/helper_resp")
 
