@@ -68,7 +68,7 @@ npm run dev
 
 You can see & access all the endpoint by click the button below to import the collection into your Postman:</br>
 </br>
-[![Run in Postmant](https://run.pstmn.io/button.svg)](https://www.app.getpostman.com/run-collection/915af2ab7fbfc41d31da)
+[![Run in Postmant](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/915af2ab7fbfc41d31da)
 
 ## Related Project
 
